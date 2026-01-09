@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boda de Miguel & Patricia</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Añadida Pinyon Script (la estabas usando en variables pero no estaba cargada) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Montserrat:wght@300;400;600&family=Courier+Prime:wght@400;700&family=Pinyon+Script&display=swap"
+    rel="stylesheet"
+  />
+
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+  <style>
+    /* --- VARIABLES DE DISEÑO --- */
+    :root {
+      --color-bg-crema-claro: #F9F7F1;
+      --color-bg-crema-medio: #F0EAD6;
+      --color-texto-azul: #2C3E50;
+      --color-acento-rojo: #A94442;
+
+      --fuente-titulo: 'EB Garamond', serif;
+      --fuente-script: 'Pinyon Script', cursive;
+      --fuente-cuerpo: 'Montserrat', sans-serif;
+      --fuente-datos: 'Courier Prime', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    body {
+      font-family: var(--fuente-cuerpo);
+      color: var(--color-texto-azul);
+      background-color: var(--color-bg-crema-claro);
+      line-height: 1.6;
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
+    }
+
+    /* --- CAPA DE TEXTURA DE PAPEL --- */
+    .overlay-textura {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 100; /* bajado de 9999 (sigue por encima pero menos agresivo) */
+      pointer-events: none;
+      background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.4"/%3E%3C/svg%3E');
+      background-repeat: repeat;
+      opacity: 0.15;
+      mix-blend-mode: multiply;
+    }
+
+    /* --- ESTRUCTURA GENERAL --- */
+    section {
+      width: 100%;
+      background-color: var(--color-bg-crema-claro);
+      padding-bottom: 4rem;
+      position: relative;
+    }
+    section.bg-alt { background-color: var(--color-bg-crema-medio); }
+
+    /* --- CLASE DECORATIVA (MAPA + AVIÓN + SELLOS) --- */
+    .decoracion-sellos {
+      background-color: var(--color-bg-crema-medio);
+      background-image:
+        url('IMG/avion-camino.png'), url('IMG/MAPA-MUNDI.png'),
+        linear-gradient(rgba(240, 234, 214, 0.9), rgba(240, 234, 214, 0.9));
+      background-position: top 50px center, center, center;
+      background-repeat: no-repeat, no-repeat, no-repeat;
+      background-size: 450px auto, cover, cover;
+      position: relative;
+    }
+    .decoracion-sellos::before, .decoracion-sellos::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 400px; height: 400px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .decoracion-sellos::before {
+      left: -20px; bottom: -20px;
+      background-image: url('IMG/sellos-01.png');
+      background-position: bottom left;
+      transform: rotate(-5deg);
+    }
+    .decoracion-sellos::after {
+      right: -20px; bottom: -20px;
+      background-image: url('IMG/sellos-02.png');
+      background-position: bottom right;
+      transform: rotate(5deg);
+    }
+
+    /* --- HEADER --- */
+    .seccion-header {
+      height: 315px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+    }
+    .seccion-header h2 {
+      font-family: var(--fuente-titulo);
+      font-size: 4rem;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      font-weight: 400;
+      color: var(--color-texto-azul);
+      max-width: 800px;
+      z-index: 2;
+    }
+    .titulo-largo h2 {
+      font-family: var(--fuente-script) !important;
+      text-transform: none !important;
+      letter-spacing: 0px !important;
+      font-size: 3rem !important;
+      line-height: 0.85;
+    }
+    .seccion-contenido {
+      width: 100%;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: -50px;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* --- TARJETA PASAPORTE --- */
+    .passport-card {
+      background: #fff;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='10' viewBox='0 0 50 10'%3E%3Cpath d='M0 5 q 12.5 -5 25 0 t 25 0' fill='none' stroke='%23f4f4f4' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 50px 10px;
+      width: 100%;
+      max-width: 100%;
+      padding: 2.5rem 2rem;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      position: relative;
+      border-radius: 2px;
+      text-align: left;
+    }
+    .passport-card::before {
+      content: '';
+      position: absolute;
+      top: 8px; left: 8px; right: 8px; bottom: 8px;
+      border: 1px solid var(--color-texto-azul);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .passport-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 1rem;
+    }
+    .passport-header h3 {
+      font-size: 1.8rem;
+      margin: 0;
+      color: var(--color-texto-azul);
+      letter-spacing: 1px;
+      font-family: var(--fuente-titulo);
+      font-weight: 400;
+    }
+    .passport-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+    }
+    .passport-photo-frame {
+      width: 100%;
+      max-width: 450px;
+      height: 350px;
+      background: #fff;
+      padding: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      transform: rotate(-1deg);
+      border: 1px solid #d0d0d0;
+    }
+    .passport-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: sepia(10%);
+    }
+    .passport-details { width: 100%; position: relative; }
+    .detail-row {
+      margin-bottom: 1rem;
+      border-bottom: 1px dotted #ccc;
+      padding-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .detail-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: #888;
+      letter-spacing: 1px;
+    }
+    .detail-value {
+      font-size: 1.1rem;
+      color: var(--color-texto-azul);
+      font-family: var(--fuente-datos);
+      font-weight: 700;
+      text-align: right;
+    }
+    .stamp-area-container {
+      position: absolute;
+      bottom: -325px;
+      right: 0;
+      width: 250px;
+      height: 120px;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .svg-wrapper-lines {
+      position: absolute;
+      bottom: -85px;
+      right: 50px;
+      width: 180px;
+      height: auto;
+      opacity: 0.7;
+    }
+    .svg-wrapper-circle {
+      position: absolute;
+      bottom: -100px;
+      right: 0;
+      width: 110px;
+      height: auto;
+      transform: rotate(-15deg);
+      opacity: 0.9;
+    }
+
+    /* --- ESTILOS CUENTA ATRÁS --- */
+    #cuenta-atras .seccion-contenido { margin-top: 0; padding-top: 4rem; }
+    .countdown-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+    .countdown-photo-frame {
+      width: 100%;
+      max-width: 400px;
+      height: 350px;
+      background: #fff;
+      padding: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transform: rotate(2deg);
+      border: 1px solid #d0d0d0;
+      margin-bottom: 1rem;
+    }
+    .countdown-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: sepia(10%);
+    }
+    .countdown-intro {
+      font-family: var(--fuente-titulo);
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--color-texto-azul);
+    }
+    .date-box {
+      background: #fff;
+      padding: 1.5rem 3rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='10' viewBox='0 0 50 10'%3E%3Cpath d='M0 5 q 12.5 -5 25 0 t 25 0' fill='none' stroke='%23f4f4f4' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 50px 10px;
+      border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0.5rem 0;
+      transform: rotate(-2deg);
+    }
+    .countdown-month {
+      font-family: var(--fuente-cuerpo);
+      font-weight: 600;
+      letter-spacing: 3px;
+      margin-bottom: 0;
+      font-size: 1.4rem;
+      color: var(--color-texto-azul);
+    }
+    .date-separator {
+      width: 50px;
+      height: 2px;
+      background-color: var(--color-acento-rojo);
+      margin: 0.5rem 0;
+      opacity: 0.3;
+    }
+    .countdown-day {
+      font-family: var(--fuente-titulo);
+      font-size: 7rem;
+      line-height: 1;
+      color: var(--color-acento-rojo);
+      font-weight: 400;
+      margin-top: -10px;
+    }
+    .countdown-inline {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 8px;
+      margin: 2rem 0;
+    }
+    .timer-unit { display: flex; flex-direction: column; align-items: center; }
+    .timer-num {
+      font-family: var(--fuente-titulo);
+      font-size: 2.8rem;
+      color: var(--color-acento-rojo);
+      line-height: 1;
+    }
+    .timer-sep {
+      font-family: var(--fuente-titulo);
+      font-size: 2.8rem;
+      color: var(--color-acento-rojo);
+      line-height: 1;
+      transform: translateY(-5px);
+    }
+    .timer-unit small {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.7rem;
+      margin-top: 8px;
+      color: var(--color-texto-azul);
+    }
+    .unit-seconds .timer-num, .unit-seconds small { opacity: 0.5; }
+    .countdown-msg {
+      font-size: 1.8rem;
+      font-family: var(--fuente-titulo);
+      font-weight: bold;
+      margin-top: 0rem;
+      color: var(--color-acento-rojo);
+      letter-spacing: 2px;
+    }
+
+    /* --- NUEVO ESTILO PARA LA BRÚJULA --- */
+    .brujula-deco {
+      width: 100px;
+      height: auto;
+      display: block;
+      margin: 1.5rem auto 0 auto;
+    }
+
+    /* --- COMPONENTES --- */
+    .btn-accion {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1.5rem;
+      text-decoration: none;
+      color: var(--color-texto-azul);
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: transform 0.3s;
+    }
+    .btn-accion i { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .btn-accion:hover { transform: scale(1.1); color: var(--color-acento-rojo); }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* --- HEADER Y ANIMACIÓN VUELO --- */
+    header {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      background: url('IMG/MAPA-MUNDI.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      padding: 2rem 1rem;
+      overflow: hidden;
+    }
+    .flight-container {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .flight-svg-canvas { width: 50%; height: 50%; display: block; overflow: visible; }
+    .path-stroke {
+      fill: none;
+      stroke: #2c3e4f;
+      stroke-miterlimit: 10;
+      stroke-width: 3px;
+      opacity: 0.6;
+    }
+    .path-dashed-1 { stroke-dasharray: 11.93 11.93; }
+    .path-dashed-2 { stroke-dasharray: 12.05 12.05; }
+    .airplane-mover {
+      offset-path: path("M0,679.79c168.55,35.76,493.4-13.7,701.13-263.76,197.59-237.87,55.83-395.96-38.97-389.56s-150.8,147.83-150.8,147.83c0,0-130.26-146.59-226.69-70.03-49.12,39-96.21,207.5,35.56,316.61,115.72,95.82,295.62,159.96,388.36,146.02,196.9-29.6,293.18-147.03,374.1-286.98S1274.42,15.23,1298.54,0");
+      offset-distance: 0%;
+      offset-rotate: auto 0deg;
+      animation: fly-loop 15s linear infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    .airplane-fill { fill: #A94442; filter: drop-shadow(3px 5px 2px rgba(0,0,0,0.3)); }
+
+    .header-passport-text {
+      position: relative;
+      z-index: 10;
+      font-family: var(--fuente-titulo);
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--color-texto-azul);
+      margin-bottom: 2rem;
+      text-align: center;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 0.5s forwards;
+    }
+    .stamp-container-header {
+      position: relative;
+      z-index: 10;
+      width: 380px;
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: stampIn 1s ease-out 0.2s forwards;
+    }
+    .stamp-ring-bg {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 65%;
+      height: auto;
+      z-index: 1;
+      opacity: 0;
+      animation: ringEntry 1s ease-out 1.3s forwards, ringSpin 30s linear 1.3s infinite;
+    }
+    .stamp-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      position: relative;
+      z-index: 5;
+      filter: drop-shadow(0px 10px 15px rgba(44, 62, 80, 0.2));
+    }
+    .emblem-text-initials {
+      position: absolute;
+      top: 44%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--fuente-titulo);
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--color-acento-rojo);
+      line-height: 1;
+      white-space: nowrap;
+      z-index: 10;
+    }
+    .emblem-text-date {
+      position: absolute;
+      top: 74%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--fuente-datos);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 3px;
+      z-index: 10;
+    }
+    .header-connector-text {
+      position: relative;
+      z-index: 10;
+      font-family: var(--fuente-titulo);
+      font-size: 2rem;
+      font-style: italic;
+      color: var(--color-texto-azul);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 1s forwards;
+    }
+
+    .header-main-names {
+      position: relative;
+      z-index: 10;
+      font-family: var(--fuente-script);
+      font-size: 3.5rem;
+      line-height: 1;
+      font-weight: normal;
+      color: var(--color-texto-azul);
+      text-align: center;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 1.2s forwards;
+    }
+    .header-heart-icon {
+      height: 1.2em;
+      width: auto;
+      vertical-align: middle;
+      margin: 0 10px;
+      transform: translateY(-5%);
+    }
+
+    /* --- REPRODUCTOR --- */
+    .music-player-container {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      width: 100%;
+      max-width: 280px;
+      margin: 1.5rem auto 3.5rem auto;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 1.5s forwards;
+    }
+    .music-btn {
+      width: 45px; height: 45px;
+      border-radius: 50%;
+      background-color: transparent;
+      color: var(--color-acento-rojo);
+      border: 2px solid var(--color-acento-rojo);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.6rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .music-btn:hover { transform: scale(1.05); background-color: rgba(169, 68, 66, 0.05); }
+    .music-btn.playing { background-color: var(--color-acento-rojo); color: #fff; animation: musicPulseSubtle 2s infinite; }
+    @keyframes musicPulseSubtle {
+      0% { box-shadow: 0 0 0 0 rgba(169, 68, 66, 0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(169, 68, 66, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(169, 68, 66, 0); }
+    }
+    .fake-slider { flex-grow: 1; height: 4px; background-color: #e0e0e0; border-radius: 4px; position: relative; }
+    .fake-slider-progress { width: 35%; height: 100%; background-color: var(--color-acento-rojo); border-radius: 4px; position: relative; }
+    .fake-slider-progress::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px; height: 12px;
+      background-color: var(--color-acento-rojo);
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .scroll-down {
+      position: absolute;
+      bottom: 30px;
+      font-size: 2rem;
+      animation: bounce 2s infinite;
+      color: var(--color-texto-azul);
+      z-index: 20;
+    }
+
+    /* --- ASISTENCIA --- */
+    .asistencia-stamp-container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      margin: 0 auto 3rem auto;
+      opacity: 0;
+      animation: stampIn 1s ease-out 0.2s forwards;
+    }
+    .asistencia-stamp-bg, .asistencia-stamp-top {
+      position: absolute;
+      top: 50%;
+      left: 45%;
+      width: 100%;
+      height: auto;
+    }
+    .asistencia-stamp-bg {
+      z-index: 1;
+      transform: translate(-50%, -50%);
+      animation: ringSpin 40s linear infinite;
+    }
+    .asistencia-stamp-top {
+      z-index: 2;
+      transform: translate(-50%, -50%) rotate(-15deg);
+    }
+    #asistencia { padding-top: 1rem; }
+    #asistencia .seccion-contenido { margin-top: 0; }
+
+    /* --- ITINERARIO --- */
+    #itinerario { width: 100%; position: relative; }
+    .timeline {
+      list-style: none;
+      padding: 0;
+      width: 100%;
+      max-width: 500px;
+      text-align: left;
+      margin-top: 1rem;
+      position: relative;
+      z-index: 10;
+    }
+    .timeline li { position: relative; padding-left: 60px; margin-bottom: 2.5rem; }
+    .timeline li::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 0;
+      bottom: -2.5rem;
+      width: 2px;
+      background: var(--color-texto-azul);
+      opacity: 0.2;
+    }
+    .timeline li:last-child::before { display: none; }
+    .timeline-icon {
+      position: absolute;
+      left: 0; top: 0;
+      width: 50px; height: 50px;
+      background: #fff;
+      border: 2px solid var(--color-texto-azul);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      z-index: 2;
+      color: var(--color-texto-azul);
+    }
+    .timeline-time {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--color-acento-rojo);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .timeline-event { font-size: 1.3rem; font-family: var(--fuente-titulo); font-weight: 600; }
+
+    /* Foto Decorativa (Estilos base Desktop) */
+    .itinerario-photo-deco {
+      position: absolute;
+      z-index: 1;
+      border: 10px solid #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      filter: sepia(10%);
+      transform-origin: center;
+    }
+
+    /* --- GENERICOS & FORM --- */
+    .card-generica {
+      background: #fff;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='10' viewBox='0 0 50 10'%3E%3Cpath d='M0 5 q 12.5 -5 25 0 t 25 0' fill='none' stroke='%23f4f4f4' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 50px 10px;
+      padding: 3rem 2rem;
+      border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      overflow: visible;
+      margin-top: 3rem;
+    }
+    .card-generica h3 { color: var(--color-acento-rojo); font-size: 1.8rem; margin-bottom: 1.5rem; }
+
+    .card-wide { max-width: 600px; }
+
+    /* --- NUEVO ESTILO PARA LOS ICONOS PNG --- */
+    .icono-seccion {
+      width: 110px;
+      height: auto;
+      display: block;
+      margin: -80px auto 1rem auto;
+      filter: drop-shadow(0 8px 12px rgba(44, 62, 80, 0.15));
+      transition: transform 0.3s ease;
+    }
+    .icono-seccion:hover { transform: scale(1.05) rotate(5deg); }
+
+    /* --- NUEVO ESTILO PARA EL MAPA --- */
+    .mapa-imagen {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      border: 1px solid #e0e0e0;
+      margin: 1.5rem 0 0.5rem 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .texto-destacado { font-weight: bold; margin-top: 10px; }
+    .texto-acento { font-size: 1.2rem; font-weight: bold; color: var(--color-acento-rojo); }
+    .mt-2 { margin-top: 10px; }
+
+    .rsvp-form {
+      background: #fff;
+      padding: 2rem;
+      border: 1px solid #d0d0d0;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      text-align: left;
+      width: 100%;
+      max-width: 500px;
+      position: relative;
+      z-index: 5;
+    }
+    .rsvp-form::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 8px;
+      background-image: repeating-linear-gradient(
+        45deg,
+        var(--color-texto-azul) 0,
+        var(--color-texto-azul) 10px,
+        transparent 10px,
+        transparent 20px,
+        var(--color-acento-rojo) 20px,
+        var(--color-acento-rojo) 30px,
+        transparent 30px,
+        transparent 40px
+      );
+      border-radius: 8px 8px 0 0;
+      opacity: 0.6;
+    }
+    .form-group { margin-bottom: 1.5rem; }
+    label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fafafa;
+      font-size: 1rem;
+      font-family: var(--fuente-cuerpo);
+      color: var(--color-texto-azul);
+    }
+    button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--color-texto-azul);
+      color: white;
+      border: none;
+      font-size: 1.1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+
+    /* --- FOOTER Y FIRMA --- */
+    footer {
+      background-color: var(--color-texto-azul);
+      color: var(--color-bg-crema-claro);
+      padding: 3rem 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    .footer-heart {
+      color: var(--color-acento-rojo);
+      vertical-align: middle;
+      animation: heartBeat 1.5s infinite;
+    }
+    @keyframes heartBeat {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    /* --- IBAN & WHATSAPP STRIP --- */
+    .iban-numero {
+      font-family: var(--fuente-datos);
+      font-size: 1.3rem;
+      color: var(--color-acento-rojo);
+      margin-bottom: 1.5rem;
+      letter-spacing: -1px;
+      word-break: break-all;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+    .whatsapp-strip {
+      background-color: #25D366;
+      padding: 2rem 1rem;
+      text-align: center;
+      width: 100%;
+      position: relative;
+      z-index: 20;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn-ws-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      z-index: 5;
+    }
+    .btn-ws {
+      background: #fff;
+      color: #25D366;
+      padding: 15px 35px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 2px solid #fff;
+    }
+    .btn-ws:hover { transform: translateY(-3px); }
+
+    /* --- KEYFRAMES --- */
+    @keyframes stampIn { 0% { opacity: 0; transform: scale(1.5); } 100% { opacity: 1; transform: scale(1); } }
+    @keyframes ringEntry { to { opacity: 1; } }
+    @keyframes ringSpin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+    @keyframes fly-loop {
+      0% { offset-distance: 0%; opacity: 0; transform: scale(0.5); }
+      5% { opacity: 1; transform: scale(0.8); }
+      95% { opacity: 1; transform: scale(0.8); }
+      100% { offset-distance: 100%; opacity: 0; transform: scale(0.5); }
+    }
+
+    /* --- MEDIA QUERIES --- */
+    @media (min-width: 768px) {
+      .stamp-area-container { bottom: -125px; }
+      .seccion-header { height: 60vh; }
+      .seccion-header h2 { font-size: 5rem; }
+      .titulo-largo h2 { font-size: 5rem !important; }
+      .header-passport-text { font-size: 4.5rem; margin-bottom: 3rem; font-weight: 400; letter-spacing: 0.5em; }
+      .stamp-container-header { width: 550px; }
+      .emblem-text-initials { font-size: 4.5rem; top: 45%; }
+      .emblem-text-date { font-size: 1.8rem; top: 75%; letter-spacing: 4px; }
+      .header-connector-text { font-size: 2rem; }
+      .header-main-names { font-size: 5rem; }
+      .passport-card { max-width: 900px; padding: 3rem; }
+      .passport-layout { flex-direction: row; align-items: flex-start; justify-content: space-between; }
+      .passport-details { width: 45%; order: 2; }
+      .passport-photo-frame { width: 50%; max-width: none; height: 400px; order: 1; margin-top: 0; }
+      .seccion-contenido { margin-top: -80px; }
+      .path-stroke { stroke-width: 2px; }
+      .airplane-mover { animation-duration: 18s; }
+
+      .itinerario-photo-deco {
+        width: 450px;
+        top: 50%;
+        right: -50px;
+        transform: translateY(-50%) rotate(5deg);
+      }
+      .countdown-day { font-size: 8rem; }
+      .timer-num, .timer-sep { font-size: 3.5rem; }
+    }
+
+    @media (min-width: 1200px) {
+      .itinerario-photo-deco { right: 5%; }
+    }
+
+    @media (max-width: 768px) {
+      .decoracion-sellos {
+        background-size: 80% auto, cover, cover;
+        background-position: top 40px center, center, center;
+      }
+      .decoracion-sellos::before, .decoracion-sellos::after {
+        width: 300px; height: 300px; opacity: 0.7;
+      }
+
+      /* --- PARALLAX MÓVIL (FLY-THROUGH) --- */
+      #itinerario { position: relative; overflow: hidden; }
+      .itinerario-photo-deco {
+        position: absolute;
+        width: 70%;
+        max-width: 320px;
+
+        top: 50%;
+        right: -10%;
+        left: auto;
+
+        z-index: 20;
+        pointer-events: none;
+
+        transform: translateY(-50%) rotate(4deg);
+
+        filter: sepia(20%) drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        will-change: transform;
+        transition: none;
+      }
+
+      .timeline { position: relative; z-index: 5; }
+
+      .music-player-container { flex-direction: column; gap: 10px; }
+      .fake-slider { width: 100%; flex-grow: 0; }
+      .iban-numero { font-size: 1rem; }
+    }
+
+    /* Respeta usuarios con reducción de movimiento */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal, .reveal.active { transition: none; transform: none; opacity: 1; }
+      .scroll-down, .footer-heart, .airplane-mover, .stamp-ring-bg { animation: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="overlay-textura"></div>
+
+  <header id="inicio">
+    <div class="flight-container" aria-hidden="true">
+      <svg class="flight-svg-canvas" viewBox="0 0 1300.02 693.85" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <g id="visible-path">
+          <path class="path-stroke" d="M.42,681.48c1.94.41,3.9.81,5.88,1.2"/>
+          <path class="path-stroke path-dashed-2" d="M18.14,684.83c172.78,28.81,482.74-25.55,683.4-267.1,197.59-237.87,55.83-395.96-38.97-389.56-78.59,5.31-130.52,103.43-145.98,136.82"/>
+          <path class="path-stroke" d="M514.11,170.48c-1.55,3.53-2.34,5.52-2.34,5.52,0,0-1.42-1.6-4.09-4.39"/>
+          <path class="path-stroke path-dashed-1" d="M499.28,163.14c-34.85-33.99-135.72-119.48-214.2-57.17-49.12,39-96.21,207.5,35.56,316.61,115.72,95.82,295.62,159.96,388.36,146.02,196.9-29.6,293.18-147.03,374.1-286.98,73.07-126.38,170.51-240.36,206.49-272.49"/>
+          <path class="path-stroke" d="M1294.13,5.25c1.86-1.51,3.48-2.71,4.83-3.55"/>
+        </g>
+        <g class="airplane-mover">
+          <svg viewBox="0 0 117.13 125.64" width="150" height="150" x="-25" y="-25" style="overflow: visible;">
+            <path class="airplane-fill" d="M46.07,125.61l5.85-1.02c.6-.1,1.11-.48,1.38-1.03l6.95-12.97,9.58-.02c1.07,0,1.93-.87,1.93-1.94v-5.48c-.01-1.07-.88-1.93-1.95-1.93h-4.55s3.12-5.82,3.12-5.82l9.98-.02c1.07,0,1.93-.87,1.93-1.94v-5.48c-.01-1.07-.88-1.93-1.95-1.93h-4.95s7-13.05,7-13.05c7.17.43,12.83.74,15,.77,10.71.13,22.22-7.66,21.73-11.09.48-3.43-11.07-11.18-21.77-11-2.16.04-7.83.36-14.99.83l-7.05-13.03h4.95c1.07-.01,1.93-.88,1.93-1.95v-5.48c-.01-1.07-.88-1.93-1.95-1.93l-9.98.02-3.14-5.81h4.55c1.07-.01,1.93-.88,1.93-1.95v-5.48c-.01-1.07-.88-1.93-1.95-1.93l-9.58.02-7-12.94c-.27-.54-.79-.92-1.38-1.02L45.82.03c-1.34-.23-2.48.98-2.18,2.3l12.54,51.82c-12.31.87-23.47,1.69-26.63,1.91-3.65.26-6.91.6-9.82.99l-10.57-14.97c-.22-.39-.61-.66-1.05-.74l-2.86-.5c-1.06-.18-1.96.77-1.71,1.82l4.65,16.44c-3.94.93-6.07,1.73-6.45,1.92C.92,61.44,0,62.12,0,62.91s.93,1.47,1.75,1.88c.38.19,2.51.98,6.45,1.89l-4.59,16.46c-.24,1.05.67,2,1.72,1.81l2.86-.51c.44-.08.82-.35,1.04-.74l10.51-15.01c2.91.37,6.17.7,9.82.95,3.16.21,14.32.99,26.64,1.81l-12.33,51.87c-.29,1.33.85,2.53,2.19,2.29Z"/>
+          </svg>
+        </g>
+      </svg>
+    </div>
+
+    <div class="header-passport-text">PASAPORTE</div>
+
+    <div class="stamp-container-header">
+      <img src="IMG/sello-02.png" alt="Anillo Decorativo" class="stamp-ring-bg" decoding="async" />
+      <img src="IMG/sello-01.png" alt="Emblema Boda" class="stamp-image" decoding="async" />
+      <div class="emblem-text-initials">M&P</div>
+      <div class="emblem-text-date">18.7.26</div>
+    </div>
+
+    <div class="header-connector-text">a la boda de</div>
+
+    <h1 class="header-main-names">
+      Miguel
+      <img src="IMG/corazon.png" alt="Corazón" class="header-heart-icon" decoding="async" />
+      Patricia
+    </h1>
+
+    <audio id="bg-music" loop preload="none">
+      <source src="MUSICA/cancion.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div class="music-player-container">
+      <button id="music-toggle" class="music-btn" type="button" aria-label="Reproducir música" title="Poner música">
+        <i class='bx bx-play' aria-hidden="true"></i>
+      </button>
+      <div class="fake-slider" aria-hidden="true">
+        <div class="fake-slider-progress"></div>
+      </div>
+    </div>
+
+    <div class="scroll-down" aria-hidden="true"><i class='bx bx-chevrons-down'></i></div>
+  </header>
+
+  <section id="passport-data" class="reveal">
+    <div class="seccion-header titulo-largo">
+      <h2>Prepara tus maletas<br />y acompáñanos<br />en esta aventura</h2>
+    </div>
+
+    <div class="seccion-contenido">
+      <div class="passport-card">
+        <div class="passport-header">
+          <h3>PASAPORTE A NUESTRA BODA</h3>
+        </div>
+
+        <div class="passport-layout">
+          <div class="passport-details">
+            <div class="detail-row"><span class="detail-label">FECHA:</span><span class="detail-value">18 DE JULIO DE 2026</span></div>
+            <div class="detail-row"><span class="detail-label">HORA:</span><span class="detail-value">19:00 H</span></div>
+            <div class="detail-row"><span class="detail-label">DESTINO:</span><span class="detail-value">MADRID, ESPAÑA</span></div>
+
+            <div class="stamp-area-container">
+              <div class="svg-wrapper-lines">
+                <img
+                  decoding="async"
+                  loading="lazy"
+                  width="810"
+                  height="810"
+                  sizes="138px"
+                  srcset="IMG/LINEAS.svg?scale-down-to=512&amp;width=810&amp;height=810 512w,IMG/LINEAS.svg?width=810&amp;height=810 810w"
+                  src="IMG/LINEAS.svg?width=810&amp;height=810"
+                  alt=""
+                  style="display:block;width:100%;height:100%;border-radius:inherit;corner-shape:inherit;object-position:bottom;object-fit:cover"
+                />
+              </div>
+              <div class="svg-wrapper-circle">
+                <img
+                  decoding="async"
+                  loading="lazy"
+                  width="810"
+                  height="810"
+                  sizes="94px"
+                  srcset="IMG/circulo.svg?scale-down-to=512&amp;width=810&amp;height=810 512w,IMG/circulo.svg?width=810&amp;height=810 810w"
+                  src="IMG/circulo.svg"
+                  alt=""
+                  style="display:block;width:100%;height:100%;border-radius:inherit;corner-shape:inherit;object-position:center;object-fit:cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="passport-photo-frame">
+            <img
+              src="IMG/Patri-boda.jpeg?q=80&w=2070&auto=format&fit=crop"
+              alt="Miguel y Patricia"
+              class="passport-photo"
+              decoding="async"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="destino" class="reveal bg-alt decoracion-sellos">
+    <div class="seccion-header">
+      <h2>DESTINO</h2>
+    </div>
+
+    <div class="seccion-contenido">
+      <div class="card-generica">
+        <img src="IMG/icono-01.png" alt="Icono Destino" class="icono-seccion" decoding="async" loading="lazy" />
+
+        <h3>REAL FÁBRICA DE TAPICES</h3>
+        <p>Entrada por Calle de Vandergoten<br />esquina con Calle Julián Gayarre.</p>
+        <p class="texto-destacado mt-2">19:00 h</p>
+
+        <img src="IMG/mapa-evento.png" alt="Plano del Evento" class="mapa-imagen" decoding="async" loading="lazy" />
+
+        <a href="https://maps.app.goo.gl/tqhm8vexhyrzdFSY6" target="_blank" rel="noopener noreferrer" class="btn-accion">
+          <i class='bx bx-map-alt'></i>
+          (CLIC MAPA)
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="itinerario" class="reveal">
+    <div class="seccion-header">
+      <h2>ITINERARIO</h2>
+    </div>
+
+    <div class="seccion-contenido">
+      <ul class="timeline">
+        <li><div class="timeline-icon"><i class='bx bx-car'></i></div><span class="timeline-time">19:00 h</span><span class="timeline-event">Recepción</span></li>
+        <li><div class="timeline-icon"><i class='bx bx-church'></i></div><span class="timeline-time">19:30 h</span><span class="timeline-event">Ceremonia</span></li>
+        <li><div class="timeline-icon"><i class='bx bx-wine'></i></div><span class="timeline-time">20:00 h</span><span class="timeline-event">Cocktail</span></li>
+        <li><div class="timeline-icon"><i class='bx bx-dish'></i></div><span class="timeline-time">21:00 h</span><span class="timeline-event">Cena</span></li>
+        <li><div class="timeline-icon"><i class='bx bx-music'></i></div><span class="timeline-time">23:00 h</span><span class="timeline-event">Barra libre y recena</span></li>
+        <li><div class="timeline-icon"><i class='bx bxs-star'></i></div><span class="timeline-time">04:00 h</span><span class="timeline-event">Fin de Fiesta</span></li>
+      </ul>
+
+      <img
+        id="itinerario-img"
+        src="IMG/Patri-boda-02.jpeg?q=80&w=1000&auto=format&fit=crop"
+        alt="Foto Itinerario"
+        class="itinerario-photo-deco"
+        decoding="async"
+        loading="lazy"
+      />
+    </div>
+  </section>
+
+  <section id="fotos" class="reveal bg-alt decoracion-sellos">
+    <div class="seccion-header">
+      <h2>FOTOS</h2>
+    </div>
+
+    <div class="seccion-contenido">
+      <div class="card-generica card-wide">
+        <img src="IMG/icono-02.png" alt="Icono Fotos" class="icono-seccion" decoding="async" loading="lazy" />
+
+        <p class="texto-acento">¡FLASH Y DISPARA!</p>
+        <p>Queremos revivir cada instante, así que no os cortéis: capturad los momentos más divertidos, emotivos y espontáneos.</p>
+
+        <a
+          href="https://photos.google.com/share/AF1QipN21KqOEbjunP1dSBJ7ttbNQ01hF50ojgpsqAPKphzKtB5W8gZGYTWCcXcEUQ_qOA?key=bWhCcERMODZXWEt1dDFna21CcDVrUGV5aDQyTTJB"
+          class="btn-accion"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class='bx bx-camera'></i>
+          (SUBIR FOTOS)
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="asistencia" class="reveal">
+    <div class="seccion-contenido">
+      <div class="asistencia-stamp-container" aria-hidden="true">
+        <img src="IMG/sello-B-01.png" alt="Sello Fondo Asistencia" class="asistencia-stamp-bg" decoding="async" loading="lazy" />
+        <img src="IMG/sello-B-02.png" alt="Sello Superior Asistencia" class="asistencia-stamp-top" decoding="async" loading="lazy" />
+      </div>
+
+      <form class="rsvp-form" action="https://formspree.io/f/xdakqyye" method="POST">
+        <input type="hidden" name="_language" value="es" />
+        <input type="hidden" name="_subject" value="Nueva confirmación de Boda!" />
+
+        <div class="form-group">
+          <label for="nombre">Nombre Completo:</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Nombre y Apellido" required />
+        </div>
+
+        <!-- FIX: id duplicado -->
+        <div class="form-group">
+          <label for="asistencia-select">¿Podrás asistir?</label>
+          <select id="asistencia-select" name="asistencia">
+            <option value="Si">¡Sí, ahí estaré!</option>
+            <option value="No">No podré asistir</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="mensaje">Alergias o mensaje especial:</label>
+          <textarea id="mensaje" name="mensaje" rows="3" placeholder="Escribe aquí..."></textarea>
+        </div>
+
+        <button type="submit">ENVIAR CONFIRMACIÓN</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="detalles" class="reveal bg-alt decoracion-sellos">
+    <div class="seccion-header">
+      <h2>ALGUNOS DETALLES</h2>
+    </div>
+
+    <div class="seccion-contenido">
+      <div class="card-generica">
+        <img src="IMG/icono-03.png" alt="Icono Regalo" class="icono-seccion" decoding="async" loading="lazy" />
+
+        <p style="margin-bottom: 2rem; font-size: 1.05rem;">
+          Vuestra sola presencia es nuestro mejor regalo, pero si queréis tener un detalle con nosotros para este gran viaje que hoy iniciamos juntos, podréis hacerlo aquí:
+        </p>
+
+        <p class="iban-numero">ES89 0182 1294 1802 0218 2946</p>
+
+        <p style="margin-bottom: 1rem; font-style: italic;">
+          Gracias por ayudarnos a cumplir nuestros sueños, hoy y siempre.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cuenta-atras" class="reveal">
+    <div class="flight-container" aria-hidden="true">
+      <svg class="flight-svg-canvas" viewBox="0 0 1300.02 693.85" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <g id="visible-path">
+          <path class="path-stroke" d="M.42,681.48c1.94.41,3.9.81,5.88,1.2"/>
+          <path class="path-stroke path-dashed-2" d="M18.14,684.83c172.78,28.81,482.74-25.55,683.4-267.1,197.59-237.87,55.83-395.96-38.97-389.56-78.59,5.31-130.52,103.43-145.98,136.82"/>
+          <path class="path-stroke" d="M514.11,170.48c-1.55,3.53-2.34,5.52-2.34,5.52,0,0-1.42-1.6-4.09-4.39"/>
+          <path class="path-stroke path-dashed-1" d="M499.28,163.14c-34.85-33.99-135.72-119.48-214.2-57.17-49.12,39-96.21,207.5,35.56,316.61,115.72,95.82,295.62,159.96,388.36,146.02,196.9-29.6,293.18-147.03,374.1-286.98,73.07-126.38,170.51-240.36,206.49-272.49"/>
+          <path class="path-stroke" d="M1294.13,5.25c1.86-1.51,3.48-2.71,4.83-3.55"/>
+        </g>
+        <g class="airplane-mover">
+          <svg viewBox="0 0 117.13 125.64" width="150" height="150" x="-25" y="-25" style="overflow: visible;">
+            <path class="airplane-fill" d="M46.07,125.61l5.85-1.02c.6-.1,1.11-.48,1.38-1.03l6.95-12.97,9.58-.02c1.07,0,1.93-.87,1.93-1.94v-5.48c-.01-1.07-.88-1.93-1.95-1.93h-4.55s3.12-5.82,3.12-5.82l9.98-.02c1.07,0,1.93-.87,1.93-1.94v-5.48c-.01-1.07-.88-1.93-1.95-1.93h-4.95s7-13.05,7-13.05c7.17.43,12.83.74,15,.77,10.71.13,22.22-7.66,21.73-11.09.48-3.43-11.07-11.18-21.77-11-2.16.04-7.83.36-14.99.83l-7.05-13.03h4.95c1.07-.01,1.93-.88,1.93-1.95v-5.48c-.01-1.07-.88-1.93-1.95-1.93l-9.98.02-3.14-5.81h4.55c1.07-.01,1.93-.88,1.93-1.95v-5.48c-.01-1.07-.88-1.93-1.95-1.93l-9.58.02-7-12.94c-.27-.54-.79-.92-1.38-1.02L45.82.03c-1.34-.23-2.48.98-2.18,2.3l12.54,51.82c-12.31.87-23.47,1.69-26.63,1.91-3.65.26-6.91.6-9.82.99l-10.57-14.97c-.22-.39-.61-.66-1.05-.74l-2.86-.5c-1.06-.18-1.96.77-1.71,1.82l4.65,16.44c-3.94.93-6.07,1.73-6.45,1.92C.92,61.44,0,62.12,0,62.91s.93,1.47,1.75,1.88c.38.19,2.51.98,6.45,1.89l-4.59,16.46c-.24,1.05.67,2,1.72,1.81l2.86-.51c.44-.08.82-.35,1.04-.74l10.51-15.01c2.91.37,6.17.7,9.82.95,3.16.21,14.32.99,26.64,1.81l-12.33,51.87c-.29,1.33.85,2.53,2.19,2.29Z"/>
+          </svg>
+        </g>
+      </svg>
+    </div>
+
+    <div class="seccion-contenido">
+      <div class="countdown-layout">
+        <div class="countdown-photo-frame">
+          <img
+            src="IMG/Patri-boda-04.jpeg?q=80&w=2070&auto=format&fit=crop"
+            alt="Pareja Boda 3"
+            class="countdown-photo"
+            decoding="async"
+            loading="lazy"
+          />
+        </div>
+
+        <p class="countdown-intro">Contando los días</p>
+
+        <div class="date-box">
+          <h3 class="countdown-month">JULIO</h3>
+          <div class="date-separator"></div>
+          <h2 class="countdown-day">18</h2>
+        </div>
+
+        <div class="countdown-inline">
+          <div class="timer-unit"><span id="days" class="timer-num">00</span><small>Días</small></div>
+          <span class="timer-sep">:</span>
+          <div class="timer-unit"><span id="hours" class="timer-num">00</span><small>Horas</small></div>
+          <span class="timer-sep">:</span>
+          <div class="timer-unit"><span id="minutes" class="timer-num">00</span><small>Min</small></div>
+          <span class="timer-sep">:</span>
+          <div class="timer-unit unit-seconds"><span id="seconds" class="timer-num">00</span><small>Seg</small></div>
+        </div>
+
+        <p class="countdown-msg">¡TE ESPERAMOS!</p>
+
+        <img src="IMG/brujula.png" alt="Brújula" class="brujula-deco" decoding="async" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <div class="whatsapp-strip">
+    <div class="btn-ws-group">
+      <a href="https://wa.me/34606871760?text=%C2%A1Hola%20Miguel!%20Te%20escribo%20por%20la%20boda..." class="btn-ws" target="_blank" rel="noopener noreferrer">
+        <i class='bx bxl-whatsapp' aria-hidden="true"></i> Miguel
+      </a>
+
+      <a href="https://wa.me/34616280082?text=%C2%A1Hola%20Patri!%20Te%20escribo%20por%20la%20boda..." class="btn-ws" target="_blank" rel="noopener noreferrer">
+        <i class='bx bxl-whatsapp' aria-hidden="true"></i> Patricia
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <p>Realizado con <i class='bx bxs-heart footer-heart' aria-hidden="true"></i> para Miguel & Patricia &copy; 2026</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- REVEAL ON SCROLL ---
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+      }, { threshold: 0.1 });
+      reveals.forEach(el => observer.observe(el));
+
+      // --- PARALLAX MÓVIL (ITINERARIO) con rAF ---
+      const itinerarySection = document.getElementById('itinerario');
+      const itineraryImg = document.getElementById('itinerario-img');
+
+      function updateParallax() {
+        if (!itinerarySection || !itineraryImg) return;
+
+        if (window.innerWidth <= 768) {
+          const rect = itinerarySection.getBoundingClientRect();
+          const viewHeight = window.innerHeight;
+
+          if (rect.top < viewHeight && rect.bottom > 0) {
+            const progress = (viewHeight - rect.top) / (viewHeight + rect.height);
+            const travelDistance = viewHeight * 1.5;
+            const offset = (progress - 0.5) * -1;
+            const moveY = offset * travelDistance;
+
+            itineraryImg.style.transform = `translateY(calc(-50% + ${moveY}px)) rotate(4deg)`;
+          }
+        } else {
+          itineraryImg.style.transform = '';
+        }
+      }
+
+      let ticking = false;
+      function onScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateParallax();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', () => requestAnimationFrame(updateParallax));
+      updateParallax();
+
+      // --- COUNTDOWN (ISO +02:00, más robusto en Safari) ---
+      const targetDate = new Date("2026-07-18T12:00:00+02:00").getTime();
+
+      const pad = (n) => (n < 10 ? '0' + n : '' + n);
+      const daysEl = document.getElementById("days");
+      const hoursEl = document.getElementById("hours");
+      const minutesEl = document.getElementById("minutes");
+      const secondsEl = document.getElementById("seconds");
+      const cuentaAtrasSection = document.getElementById("cuenta-atras");
+
+      const timer = setInterval(() => {
+        const now = Date.now();
+        const diff = targetDate - now;
+
+        if (diff < 0) {
+          clearInterval(timer);
+          if (cuentaAtrasSection) {
+            cuentaAtrasSection.innerHTML = "<div class='seccion-contenido' style='padding:5rem 1.5rem; text-align:center;'><h2 style='font-family: var(--fuente-titulo); color: var(--color-acento-rojo); font-size:3rem;'>¡ES HOY!</h2></div>";
+          }
+          return;
+        }
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        if (daysEl) daysEl.innerText = pad(d);
+        if (hoursEl) hoursEl.innerText = pad(h);
+        if (minutesEl) minutesEl.innerText = pad(m);
+        if (secondsEl) secondsEl.innerText = pad(s);
+      }, 1000);
+
+      // --- MÚSICA (con catch por autoplay policies) ---
+      const music = document.getElementById('bg-music');
+      const btn = document.getElementById('music-toggle');
+      const icon = btn ? btn.querySelector('i') : null;
+
+      if (btn && music && icon) {
+        btn.addEventListener('click', async () => {
+          if (music.paused) {
+            try {
+              await music.play();
+              icon.classList.replace('bx-play', 'bx-pause');
+              btn.classList.add('playing');
+              btn.setAttribute('aria-label', 'Pausar música');
+              btn.setAttribute('title', 'Pausar música');
+            } catch (e) {
+              // Si el navegador bloquea, no rompemos la UX
+              // (normalmente no ocurrirá porque es click del usuario)
+              console.warn('No se pudo reproducir el audio:', e);
+            }
+          } else {
+            music.pause();
+            icon.classList.replace('bx-pause', 'bx-play');
+            btn.classList.remove('playing');
+            btn.setAttribute('aria-label', 'Reproducir música');
+            btn.setAttribute('title', 'Poner música');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
