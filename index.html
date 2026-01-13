@@ -4,18 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Boda de Miguel & Patricia</title>
+    
+  <meta property="og:title" content="Boda de Miguel & Patricia - 18.07.26">
+  <meta property="og:description" content="¡Nos casamos! Entra para ver el itinerario, confirmar asistencia y acompañarnos en este gran viaje.">
+  <meta property="og:image" content="https://www.miguelypatricia.es/IMG/preview-web.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.miguelypatricia.es">
 
-  	<meta property="og:title" content="Boda de Miguel & Patricia - 18.07.26">
-    <meta property="og:description" content="¡Nos casamos! Entra para ver el itinerario, confirmar asistencia y acompañarnos en este gran viaje.">
-    <meta property="og:image" content="https://www.miguelypatricia.es/IMG/preview-web.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.miguelypatricia.es">
-  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Añadida Pinyon Script (la estabas usando en variables pero no estaba cargada) -->
+  
   <link
     href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Montserrat:wght@300;400;600&family=Courier+Prime:wght@400;700&family=Pinyon+Script&display=swap"
     rel="stylesheet"
@@ -55,11 +55,63 @@
       position: relative;
     }
 
+    /* --- PANTALLA DE CARGA (PRELOADER) --- */
+    #preloader {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-color: var(--color-bg-crema-claro);
+        z-index: 99999; /* Por encima de todo */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    .loader-content {
+        text-align: center;
+        color: var(--color-acento-rojo);
+    }
+
+    .loader-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+        animation: planeLoad 1.5s infinite ease-in-out;
+    }
+
+    .loader-text {
+        font-family: var(--fuente-datos);
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: var(--color-texto-azul);
+    }
+
+    /* Clase para ocultar el scroll mientras carga */
+    body.loading-active {
+        overflow: hidden;
+    }
+
+    /* Animación del avión cargando */
+    @keyframes planeLoad {
+        0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+        50% { transform: translateY(-10px) rotate(-5deg); opacity: 1; }
+        100% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+    }
+
+    /* Clase para desvanecer el loader */
+    #preloader.loaded {
+        opacity: 0;
+        visibility: hidden;
+    }
+
     /* --- CAPA DE TEXTURA DE PAPEL --- */
     .overlay-textura {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 100; /* bajado de 9999 (sigue por encima pero menos agresivo) */
+      z-index: 100; 
       pointer-events: none;
       background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.4"/%3E%3C/svg%3E');
       background-repeat: repeat;
@@ -806,6 +858,23 @@
       100% { transform: scale(1); }
     }
 
+    .firma-lengueta {
+        display: inline-block;
+        margin-top: 5px;
+    }
+    
+    .firma-img {
+        height: 40px; 
+        width: auto;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+        filter: invert(1) brightness(2); 
+    }
+    .firma-img:hover {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
     /* --- IBAN & WHATSAPP STRIP --- */
     .iban-numero {
       font-family: var(--fuente-datos);
@@ -950,7 +1019,15 @@
   </style>
 </head>
 
-<body>
+<body class="loading-active">
+
+  <div id="preloader">
+      <div class="loader-content">
+          <i class='bx bxs-plane-alt loader-icon'></i>
+          <p class="loader-text">Preparando el viaje...</p>
+      </div>
+  </div>
+
   <div class="overlay-textura"></div>
 
   <header id="inicio">
@@ -1029,8 +1106,8 @@
                   width="810"
                   height="810"
                   sizes="138px"
-                  srcset="IMG/LINEAS.svg?scale-down-to=512&amp;width=810&amp;height=810 512w,IMG/LINEAS.svg?width=810&amp;height=810 810w"
-                  src="IMG/LINEAS.svg?width=810&amp;height=810"
+                  srcset="IMG/LINEAS.svg?scale-down-to=512&width=810&height=810 512w,IMG/LINEAS.svg?width=810&height=810 810w"
+                  src="IMG/LINEAS.svg?width=810&height=810"
                   alt=""
                   style="display:block;width:100%;height:100%;border-radius:inherit;corner-shape:inherit;object-position:bottom;object-fit:cover"
                 />
@@ -1042,7 +1119,7 @@
                   width="810"
                   height="810"
                   sizes="94px"
-                  srcset="IMG/circulo.svg?scale-down-to=512&amp;width=810&amp;height=810 512w,IMG/circulo.svg?width=810&amp;height=810 810w"
+                  srcset="IMG/circulo.svg?scale-down-to=512&width=810&height=810 512w,IMG/circulo.svg?width=810&height=810 810w"
                   src="IMG/circulo.svg"
                   alt=""
                   style="display:block;width:100%;height:100%;border-radius:inherit;corner-shape:inherit;object-position:center;object-fit:cover"
@@ -1155,7 +1232,6 @@
           <input type="text" id="nombre" name="nombre" placeholder="Nombre y Apellido" required />
         </div>
 
-        <!-- FIX: id duplicado -->
         <div class="form-group">
           <label for="asistencia-select">¿Podrás asistir?</label>
           <select id="asistencia-select" name="asistencia">
@@ -1264,10 +1340,36 @@
   </div>
 
   <footer>
-    <p>Realizado con <i class='bx bxs-heart footer-heart' aria-hidden="true"></i> para Miguel & Patricia &copy; 2026</p>
+    <p>Realizado con <i class='bx bxs-heart footer-heart' aria-hidden="true"></i> para Miguel & Patricia © 2026</p>
+    <div class="firma-lengueta">
+        <img src="IMG/firma.png" alt="Firma Autor" class="firma-img">
+    </div>
   </footer>
 
   <script>
+    // --- SCRIPT DE PANTALLA DE CARGA (PRELOADER) ---
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        const body = document.body;
+
+        // Pequeño retardo para que la transición sea suave
+        setTimeout(() => {
+            if (preloader) preloader.classList.add('loaded');
+            if (body) body.classList.remove('loading-active');
+        }, 800); // 0.8 segundos extra para asegurar fluidez
+    });
+
+    // SEGURIDAD: Si por lo que sea la web tarda más de 6 segundos, quitamos el loader
+    setTimeout(() => {
+        const preloader = document.getElementById('preloader');
+        const body = document.body;
+        if (preloader && !preloader.classList.contains('loaded')) {
+            preloader.classList.add('loaded');
+            if (body) body.classList.remove('loading-active');
+        }
+    }, 6000);
+
+
     document.addEventListener('DOMContentLoaded', () => {
       // --- REVEAL ON SCROLL ---
       const reveals = document.querySelectorAll('.reveal');
@@ -1278,7 +1380,7 @@
       }, { threshold: 0.1 });
       reveals.forEach(el => observer.observe(el));
 
-      // --- PARALLAX MÓVIL (ITINERARIO) con rAF ---
+      // --- PARALLAX MÓVIL (ITINERARIO) ---
       const itinerarySection = document.getElementById('itinerario');
       const itineraryImg = document.getElementById('itinerario-img');
 
@@ -1302,24 +1404,11 @@
         }
       }
 
-      let ticking = false;
-      function onScroll() {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            updateParallax();
-            ticking = false;
-          });
-          ticking = true;
-        }
-      }
-
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', () => requestAnimationFrame(updateParallax));
-      updateParallax();
-
-      // --- COUNTDOWN (ISO +02:00, más robusto en Safari) ---
+      window.addEventListener('scroll', updateParallax, { passive: true });
+      window.addEventListener('resize', updateParallax);
+      
+      // --- COUNTDOWN ---
       const targetDate = new Date("2026-07-18T12:00:00+02:00").getTime();
-
       const pad = (n) => (n < 10 ? '0' + n : '' + n);
       const daysEl = document.getElementById("days");
       const hoursEl = document.getElementById("hours");
@@ -1350,7 +1439,7 @@
         if (secondsEl) secondsEl.innerText = pad(s);
       }, 1000);
 
-      // --- MÚSICA (con catch por autoplay policies) ---
+      // --- MÚSICA ---
       const music = document.getElementById('bg-music');
       const btn = document.getElementById('music-toggle');
       const icon = btn ? btn.querySelector('i') : null;
@@ -1362,19 +1451,13 @@
               await music.play();
               icon.classList.replace('bx-play', 'bx-pause');
               btn.classList.add('playing');
-              btn.setAttribute('aria-label', 'Pausar música');
-              btn.setAttribute('title', 'Pausar música');
             } catch (e) {
-              // Si el navegador bloquea, no rompemos la UX
-              // (normalmente no ocurrirá porque es click del usuario)
               console.warn('No se pudo reproducir el audio:', e);
             }
           } else {
             music.pause();
             icon.classList.replace('bx-pause', 'bx-play');
             btn.classList.remove('playing');
-            btn.setAttribute('aria-label', 'Reproducir música');
-            btn.setAttribute('title', 'Poner música');
           }
         });
       }
